@@ -4,51 +4,69 @@ var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"
 var specialCharacter = ["!", "@", "#", "$", "%", "^", "&", "*", "?", "<", ">"];
 var numeric = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
-function generatePassword(passwordText) {
-//WHEN prompted for the length of the password THEN I choose a length of at least 8 characters and no more than 128 characters
-  var length = parseInt(
+function generatePassword() {
+  var passwordText = [];
+  var passwordLength = parseInt(
     prompt("How many characters should your password be?"), 10
-  );
-
-  if (length < 8 || length > 128){
+    ); //length code from tutoring w/ Abiel Hailemariam
+    
+    //WHEN prompted for the length of the password THEN I choose a length of at least 8 characters and no more than 128 characters
+  if (passwordLength < 8 || length > 128){
     alert("Password must be between 8 and 128 characters.");
     return null;
   }; 
+  
+  if (!passwordLength){
+    return;
+  }
 
 //WHEN prompted for password criteria THEN I select which criteria to include in the password
 //WHEN asked for character types to include in the password THEN I confirm whether or not to include lowercase, uppercase, numeric, and/or special characters
-  var hasLowerCase = confirm("Does your password need lowercase letters?");
+  var hasLowerCase = confirm("Does your password need lowercase letters? (OK = yes, Cancel = no)");
+  if (hasLowerCase) {
+    passwordText = passwordText.concat(lowerCase);
+  }
 
-  var hasUpperCase = confirm("Does your password need uppercase letters?");
+  var hasUpperCase = confirm("Does your password need uppercase letters? (OK = yes, Cancel = no)");
+  if (hasUpperCase) {
+    passwordText = passwordText.concat(upperCase);
+  }
 
-  var hasSpecialCharacter = confirm("Does your password need a special character?");
+  var hasSpecialCharacter = confirm("Does your password need a special character? (OK = yes, Cancel = no)");
+  if (hasSpecialCharacter) {
+    passwordText = passwordText.concat(specialCharacter);
+  }
 
-  var hasNumeric = confirm("Does your password need a number?");
+  var hasNumeric = confirm("Does your password need a number? (OK = yes, Cancel = no)");
+  if (hasNumeric) {
+    passwordText = passwordText.concat(numeric);
+  }
 
   //WHEN I answer each prompt THEN my input should be validated and at least one character type should be selected
   if (hasLowerCase === false && hasUpperCase === false && hasNumeric === false && hasSpecialCharacter === false){
     alert("Password must have at least one character type.");
     return null;
   }
+  
+  var chooseLowerCase = Math.floor(Math.random() * lowerCase.length)
+  var chooseUppercase = Math.floor(Math.random() * upperCase.length)
+  var chooseSpecialCharacters = Math.floor(Math.random() * specialCharacter.length)
+  var chooseNumeric = Math.floor(Math.random() * numeric.length)
 
-  var chooseLowerCase = Math.floor(Math.random() * lowerCase.length);
-  var chooseUppercase = Math.floor(Math.random() * upperCase.length);
-  var chooseSpecialCharacters = Math.floor(Math.random() * specialCharacter.length);
-  var chooseNumeric = Math.floor(Math.random() * numeric.length);
-
-  var charactersChosen = {
+  var userChoices = {
     lowerCaseChoice: lowerCase[chooseLowerCase],
-
+    
     upperCaseChoice: upperCase[chooseUppercase],
 
     specialCharacterChoice: specialCharacter[chooseSpecialCharacters],
 
     numericChoice: numeric[chooseNumeric],
   }
-  var passwordText = Math.floor(Math.random(charactersChosen) * length);
-  
-  console.log(passwordText);
-  return;
+
+  for (var i = 0; i < passwordLength; i++) {
+   var random = Math.floor(Math.random() * userChoices.length)
+   console.log(userChoices[random])
+  }
 } 
 
 // Write password to the #password input
@@ -58,7 +76,6 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 //WHEN all prompts are answered THEN a password is generated that matches the selected criteria
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
