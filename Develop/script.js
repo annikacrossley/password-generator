@@ -45,7 +45,8 @@ function generatePassword(passwordText) {
 
     numericChoice: numeric[chooseNumeric],
   }
-
+  var passwordText = Math.floor(Math.random(charactersChosen) * length);
+  
   console.log(passwordText);
   return;
 } 
