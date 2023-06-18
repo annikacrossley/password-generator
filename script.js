@@ -48,7 +48,7 @@ function generatePassword(passwordText) {
   var passwordText = Math.floor(Math.random(charactersChosen) * length);
   
   console.log(passwordText);
-  return;gregreg 
+  return;
 } 
 
 // Write password to the #password input
