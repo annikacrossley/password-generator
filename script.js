@@ -6,6 +6,7 @@ var numeric = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
 function generatePassword() {
   var passwordText = [];
+  var password = [];
   var passwordLength = parseInt(
     prompt("How many characters should your password be?"), 10
     ); //length code from tutoring w/ Abiel Hailemariam
@@ -47,26 +48,14 @@ function generatePassword() {
     alert("Password must have at least one character type.");
     return null;
   }
-  
-  var chooseLowerCase = Math.floor(Math.random() * lowerCase.length)
-  var chooseUppercase = Math.floor(Math.random() * upperCase.length)
-  var chooseSpecialCharacters = Math.floor(Math.random() * specialCharacter.length)
-  var chooseNumeric = Math.floor(Math.random() * numeric.length)
-
-  var userChoices = {
-    lowerCaseChoice: lowerCase[chooseLowerCase],
-    
-    upperCaseChoice: upperCase[chooseUppercase],
-
-    specialCharacterChoice: specialCharacter[chooseSpecialCharacters],
-
-    numericChoice: numeric[chooseNumeric],
-  }
-
+   
   for (var i = 0; i < passwordLength; i++) {
-   var random = Math.floor(Math.random() * userChoices.length)
-   console.log(userChoices[random])
+    var rand = Math.floor(Math.random() * passwordText.length)
+    password[i] = (passwordText[rand]); //This array code was written with help from Jake Gerard (a friend in the field)
+    console.log(passwordText[rand])
   }
+
+  return (password.join(''));
 } 
 
 // Write password to the #password input
@@ -75,12 +64,9 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 //WHEN all prompts are answered THEN a password is generated that matches the selected criteria
-  passwordText.value = password;
+  passwordText.value = password
 }
 
 // Add event listener to generate button
   //WHEN I click the button to generate a password THEN I am presented with a series of prompts for password criteria
 generateBtn.addEventListener("click", writePassword);
-
-
-
